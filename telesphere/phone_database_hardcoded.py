@@ -9,6 +9,8 @@ class PhoneDatabase(Database):
     last_known_hit_longitude REAL NOT NULL,
     user_uuid TEXT NOT NULL);"""
     
+    insert_information = "INSERT INTO phones (number, imei, last_known_hit_latitude, last_known_hit_longitude, user_uuid) VALUES (?,?,?,?,?)"
+    
     get_all_information = "SELECT * FROM phones"
     
     update_gps_coords = "UPDATE phones SET last_known_hit_latitude = ?, last_known_hit_longitude = ? WHERE number = ?;"
@@ -50,15 +52,22 @@ class PhoneDatabase(Database):
             return True
         except:
             return False
+        
+    def insert(self, number: int, imei: int, last_known_latitude: float, last_known_longitude: float, user_uuid: str):
+        try:
+            self.cursor.execute(self.insert_information, (number, imei, last_known_latitude, last_known_longitude, user_uuid))
+            return True
+        except:
+            return False
             
     def print_rows(self, rows):
         for row in rows:
             print(row)
     
-    def select(self, query: str, amount):
+    def select(self):
         return self.cursor.execute(self.get_all_information)
     
-    def update(self, query: str, number: int, latitude: float, longitude: float):
+    def update(self, number: int, latitude: float, longitude: float):
         try:
             self.cursor.execute(self.update_gps_coords, (latitude, longitude, number))
             self.commit()
@@ -66,7 +75,7 @@ class PhoneDatabase(Database):
         except:
             return False
         
-    def delete_table(self, query: str, number: int):
+    def delete_table(self, number: int):
         try:
             self.cursor.execute(self.delete_number, (number,))
             self.commit()
