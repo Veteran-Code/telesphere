@@ -1,0 +1,14 @@
+### Practice Project For Test Only ###
+
+Todos ~ Times
+1. ContactList (1 day)
+2. Phone immediately to database (socket REST) (2 day)
+3. ContactList dumps to json (0.5 day)
+4. ContactList dumps to database through requests (1 day)
+5. Model serialization with JSON for requests api (1 day)
+6. Test files (5 days)
+7. PEP 1, 8, 257?, then pyflake8? (2 days)
+8. Generate fake xml, csv, and json data to parse (3 days)
+
+~ 15 days then go back to PCPP1
+
